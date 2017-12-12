@@ -1,32 +1,15 @@
-import API from '../../api/client'
-import {
-  APP_LOADING,
-  APP_DONE_LOADING,
-  LOAD_ERROR,
-  LOAD_SUCCESS
-} from '../loading'
+import ApiClient from '../../api/client'
 import signIn from './sign-in'
 
-export const USER_SIGNED_UP = 'USER_SIGNED_UP'
-
-const api = new API()
+const api = new ApiClient()
 
 export default (user) => {
-  return (dispatch) => {
-    dispatch({ type: APP_LOADING })
-
-    api.post('/users', user)
-      .then((result) => {
-        dispatch({ type: APP_DONE_LOADING })
-        dispatch({ type: LOAD_SUCCESS })
-        dispatch(signIn(user)) // Sign in when sign up succeeded
+  return dispatch => {
+    api.post('users', { ...user })
+      .then((res) => {
+        const { email, password } = user
+        dispatch(signIn({ email, password }))
       })
-      .catch((error) => {
-        dispatch({ type: APP_DONE_LOADING })
-        dispatch({
-          type: LOAD_ERROR,
-          payload: error.message
-        })
-      })
+      .catch((err) => console.error(err))
   }
 }
