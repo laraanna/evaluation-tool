@@ -13,12 +13,26 @@ const api = new ApiClient()
 
 export default () => {
   return dispatch => {
-    // dispatch(loading(true)) // ???
+    dispatch({ type: APP_LOADING })
 
-    api.get(???)
-      .then(res => dispatch({ type: FETCHED_BATCHES, payload: res.body }))
-      //.catch(err => dispatch(loadError(err))) ???
+    api.get('batches')
+      .then((res) => {
+        dispatch({ type: APP_DONE_LOADING })
+        dispatch({ type: LOAD_SUCCESS })
 
-    // dispatch(loading(false)) // ???
+        dispatch({
+          type: FETCHED_BATCHES,
+          payload: res.body
+        })
+        console.log(res.body)
+      })
+
+      .catch((error) => {
+        dispatch({ type: APP_DONE_LOADING })
+        dispatch({
+          type: LOAD_ERROR,
+          payload: error.message
+        })
+      })
   }
 }
