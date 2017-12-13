@@ -8,6 +8,14 @@ import Avatar from 'material-ui/Avatar';
 import FileFolder from 'material-ui/svg-icons/file/folder';
 import FontIcon from 'material-ui/FontIcon';
 import {List, ListItem} from 'material-ui/List';
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn,
+} from 'material-ui/Table';
 
 
 class StudentView extends PureComponent {
@@ -22,6 +30,16 @@ class StudentView extends PureComponent {
   //   const { batch } = nextProps
   // }
 
+  renderEvaluation = (feedback, index) => {
+    return (
+       <TableRow key={index}>
+        <TableRowColumn>{feedback.color}</TableRowColumn>
+        <TableRowColumn>{feedback.remarks}</TableRowColumn>
+        <TableRowColumn>{feedback.date}</TableRowColumn>
+      </TableRow>
+    )
+  }
+
   render() {
     const { batch } = this.props
     if (!batch) return null
@@ -30,11 +48,23 @@ class StudentView extends PureComponent {
 
     return(
       <div className="Batch">
-        <h1> TESSSST </h1>
+        <h1> {thisStudent.name}  </h1>
         <p> Student id: {studentId} </p>
         <p> Name: {thisStudent.name} </p>
+        <p> Batch Number: #{batch.number} </p>
         <img src={thisStudent.picture} />
-
+        <Table>
+          <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+            <TableRow>
+               <TableHeaderColumn>COLOR</TableHeaderColumn>
+               <TableHeaderColumn>REMARKS</TableHeaderColumn>
+               <TableHeaderColumn>DATE</TableHeaderColumn>
+             </TableRow>
+          </TableHeader>
+          <TableBody displayRowCheckbox={false}>
+            {thisStudent.evaluation.map(this.renderEvaluation)}
+          </TableBody>
+        </Table>
       </div>
     )
   }
