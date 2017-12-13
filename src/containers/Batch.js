@@ -84,6 +84,8 @@ class Batch extends PureComponent {
   render() {
     const { batch } = this.props
 
+    
+
     if (!batch) return null
 
     return(

@@ -4,18 +4,13 @@ import { connect } from 'react-redux'
 import {push} from 'react-router-redux'
 import { fetchOneBatch } from '../actions/batches/fetch'
 import { Link } from 'react-router-dom'
-
 import Avatar from 'material-ui/Avatar';
 import FileFolder from 'material-ui/svg-icons/file/folder';
 import FontIcon from 'material-ui/FontIcon';
 import {List, ListItem} from 'material-ui/List';
 
 
-
-
 class StudentView extends PureComponent {
-
-
   componentWillMount() {
     const { batch, fetchOneBatch } = this.props
     const { batchId } = this.props.match.params
@@ -23,22 +18,22 @@ class StudentView extends PureComponent {
     if (!batch) { fetchOneBatch(batchId) }
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { batch } = nextProps
-  }
-
-
-
-
+  // componentWillReceiveProps(nextProps) {
+  //   const { batch } = nextProps
+  // }
 
   render() {
     const { batch } = this.props
-
     if (!batch) return null
+    const {studentId} = this.props.match.params
+    const thisStudent = batch.students.filter((s) => (s._id === studentId))[0]
 
     return(
       <div className="Batch">
         <h1> TESSSST </h1>
+        <p> Student id: {studentId} </p>
+        <p> Name: {thisStudent.name} </p>
+        <img src={thisStudent.picture} />
 
       </div>
     )
@@ -49,7 +44,6 @@ class StudentView extends PureComponent {
 
 const mapStateToProps = ({ currentUser, batches }, { match }) => {
   const batch = batches.filter((b) => (b._id === match.params.batchId))[0]
-
   return {
     batch
   }
