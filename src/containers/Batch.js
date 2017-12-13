@@ -4,15 +4,12 @@ import { connect } from 'react-redux'
 import {push} from 'react-router-redux'
 import { fetchOneBatch } from '../actions/batches/fetch'
 import { Link } from 'react-router-dom'
-import StudentEditor from './StudentEditor'
 import addStudent from '../actions/batches/addStudent'
-
 
 import Avatar from 'material-ui/Avatar';
 import FileFolder from 'material-ui/svg-icons/file/folder';
 import FontIcon from 'material-ui/FontIcon';
-import List from 'material-ui/List/List';
-import ListItem from 'material-ui/List/ListItem';
+import {List, ListItem} from 'material-ui/List';
 
 
 
@@ -49,7 +46,6 @@ class Batch extends PureComponent {
 
   componentWillReceiveProps(nextProps) {
     const { batch } = nextProps
-
   }
 
   addStudent(event){
@@ -57,10 +53,30 @@ class Batch extends PureComponent {
     const { batch } = this.props
     const student = {
       name: this.refs.name.value,
-      picture: this.refs.picture.value
+      picture: this.refs.picture.value,
+      evaluation: [{
+        color: "white",
+        remarks: "",
+        date: Date.now
 
+      }]
     }
     this.props.addStudent(student, batch)
+  }
+
+  renderOneStudent = (student, index) => {
+    const {batch} = this.props
+    const lastColor = student.evaluation[student.evaluation.length-1].color
+
+
+    return(
+      <List>
+          <ListItem key={index} disabled={true}  secondaryText={lastColor} leftAvatar={ <Avatar src={student.picture} size={50} />} >
+            {student.name}
+          </ListItem>
+      </List>
+
+    )
   }
 
   render() {
@@ -73,21 +89,8 @@ class Batch extends PureComponent {
         <h1>BATCH #{batch.number}</h1>
 
 
-        <List>
-        {batch.students.map((student) =>
-          <ListItem
-            disabled={true}
-            leftAvatar={
-              <Avatar src={student.picture} size={50} />
-            }
-          >
-          {student.name} <br />
+        {batch.students.map(this.renderOneStudent) }
 
-
-
-         </ListItem>
-        )}
-        </List>
 
         <div className="StudentEditor">
           <form onSubmit={this.addStudent.bind(this)}>

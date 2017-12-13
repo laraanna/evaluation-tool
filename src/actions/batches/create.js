@@ -14,8 +14,8 @@ export default (batch) => {
     dispatch({ type: APP_LOADING })
 
     api.post('/batches', batch)
-      .then(() => {
-        dispatch({ type: BATCH_CREATED })
+      .then((res) => {
+        dispatch({ type: BATCH_CREATED, payload: res.body  })
 
         dispatch({ type: APP_DONE_LOADING })
         dispatch({ type: LOAD_SUCCESS })
