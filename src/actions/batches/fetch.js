@@ -15,7 +15,7 @@ export default () => {
   return dispatch => {
     dispatch({ type: APP_LOADING })
 
-    api.get('batches')
+    api.get('/batches')
       .then((res) => {
         dispatch({ type: APP_DONE_LOADING })
         dispatch({ type: LOAD_SUCCESS })
