@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
+import signOut from '../../actions/user/sign-out'
 import AppBar from 'material-ui/AppBar'
 import IconButton from 'material-ui/IconButton'
 import BatchIcon from 'material-ui/svg-icons/social/people-outline'
@@ -11,19 +13,21 @@ const TITLE = 'EVALUATION'
 class Navigation extends PureComponent {
   static propTypes = {
     signedIn: PropTypes.bool.isRequired,
+    push: PropTypes.func.isRequired,
+    signOut: PropTypes.func.isRequired,
   }
 
   signOut = (event) => {
     event.preventDefault()
-    // implement later
+    this.props.signOut()
   }
 
   signUp = () => {
-    // implement later
+    this.props.push('/sign-up')
   }
 
   goHome = () => {
-    // implement later
+    this.props.push('/')
   }
 
   render() {
@@ -49,4 +53,4 @@ const mapStateToProps = ({ currentUser }) => ({
   signedIn: (!!currentUser && !!currentUser._id)
 })
 
-export default connect(mapStateToProps)(Navigation)
+export default connect(mapStateToProps, { push, signOut })(Navigation)
