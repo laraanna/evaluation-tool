@@ -5,6 +5,8 @@ import fetchBatches from '../actions/batches/fetch'
 import Paper from 'material-ui/Paper'
 import Menu from 'material-ui/Menu'
 import MenuItem from 'material-ui/MenuItem'
+import AddBatchButton from '../components/batches/AddBatchButton'
+import BatchEditor from './BatchEditor'
 
 
 
@@ -20,7 +22,7 @@ class BatchesContainer extends PureComponent {
      const number = batch.number
 
      return (
-       <MenuItem key={index} primaryText={batch.number} />
+       <MenuItem key={index} primaryText={`Batch #${number}`} />
      )
    }
 
@@ -35,6 +37,8 @@ class BatchesContainer extends PureComponent {
         {batches.map(this.renderBatch)}
 
         </Menu>
+        <BatchEditor />
+
 
       </div>
     )
