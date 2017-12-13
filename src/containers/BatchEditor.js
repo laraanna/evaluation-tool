@@ -20,7 +20,7 @@ class BatchEditor extends PureComponent {
 
   render() {
     return (
-      <div classname="BatchEditor">
+      <div className="BatchEditor">
         <form onSubmit={this.submitBatch.bind(this)}>
           <input
             type="number"

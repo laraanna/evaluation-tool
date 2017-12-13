@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import {push} from 'react-router-redux'
 import { fetchOneBatch } from '../actions/batches/fetch'
 import { Link } from 'react-router-dom'
+import StudentEditor from './StudentEditor'
+import addStudent from '../actions/batches/addStudent'
 
 
 import Avatar from 'material-ui/Avatar';
@@ -50,6 +52,17 @@ class Batch extends PureComponent {
 
   }
 
+  addStudent(event){
+    event.preventDefault()
+    const { batch } = this.props
+    const student = {
+      name: this.refs.name.value,
+      picture: this.refs.picture.value
+
+    }
+    this.props.addStudent(student, batch)
+  }
+
   render() {
     const { batch } = this.props
 
@@ -69,12 +82,23 @@ class Batch extends PureComponent {
             }
           >
           {student.name} <br />
-          {student.evaluation[student.evaluation.length- 1].color}
+
 
 
          </ListItem>
         )}
         </List>
+
+        <div className="StudentEditor">
+          <form onSubmit={this.addStudent.bind(this)}>
+            <input type="string" ref="name" placeholder="Students Name"/>
+            <input type="string" ref="picture" placeholder="Image URL" />
+          </form>
+
+          <div className="actions">
+            <button className="primary" onClick={this.addStudent.bind(this)}>Add Student to Batch</button>
+          </div>
+        </div>
 
       </div>
     )
@@ -91,4 +115,4 @@ const mapStateToProps = ({ currentUser, batches }, { match }) => {
   }
 }
 
-export default connect(mapStateToProps, {fetchOneBatch, push})(Batch)
+export default connect(mapStateToProps, {fetchOneBatch, push, addStudent: addStudent})(Batch)
