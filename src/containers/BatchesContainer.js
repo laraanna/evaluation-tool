@@ -15,7 +15,7 @@ class BatchesContainer extends PureComponent {
     this.props.fetchBatches()
   }
 
-  goToBatch = batchId => event => this.props.push(`/batch/${batchId}`)
+  goToBatch = batchId => event => this.props.push(`/batches/${batchId}`)
 
 
 
@@ -25,7 +25,7 @@ class BatchesContainer extends PureComponent {
 
      return (
        <MenuItem
-        key={index} 
+        key={index}
         primaryText={`Batch #${number}`}
         onClick={this.goToBatch(batch._id)}
         />
