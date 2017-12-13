@@ -1,0 +1,2 @@
+export const BATCH_CREATED = 'BATCH_CREATED'
+export const STUDENT_ADDED = 'STUDENT_ADDED'
