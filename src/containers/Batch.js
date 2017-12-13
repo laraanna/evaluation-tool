@@ -11,7 +11,7 @@ import FileFolder from 'material-ui/svg-icons/file/folder';
 import FontIcon from 'material-ui/FontIcon';
 import {List, ListItem} from 'material-ui/List';
 
-
+import MenuItem from 'material-ui/MenuItem'
 
 
 class Batch extends PureComponent {
@@ -44,6 +44,8 @@ class Batch extends PureComponent {
     if (!batch) { fetchOneBatch(batchId) }
   }
 
+  goToStudent = (batchId, studentId) => event => this.props.push(`/students-path/${batchId}/${studentId}`)
+
   componentWillReceiveProps(nextProps) {
     const { batch } = nextProps
   }
@@ -70,11 +72,11 @@ class Batch extends PureComponent {
 
 
     return(
-      <List>
-          <ListItem key={index} disabled={true}  secondaryText={lastColor} leftAvatar={ <Avatar src={student.picture} size={50} />} >
-            {student.name}
-          </ListItem>
-      </List>
+
+      <ListItem onClick={this.goToStudent(batch._id, student._id)} key={index}  secondaryText={lastColor} leftAvatar={ <Avatar src={student.picture} size={50} />}  >
+        {student.name}
+      </ListItem>
+
 
     )
   }
@@ -88,8 +90,9 @@ class Batch extends PureComponent {
       <div className="Batch">
         <h1>BATCH #{batch.number}</h1>
 
-
-        {batch.students.map(this.renderOneStudent) }
+        <List>
+          {batch.students.map(this.renderOneStudent) }
+        </List>
 
 
         <div className="StudentEditor">

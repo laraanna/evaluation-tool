@@ -5,7 +5,7 @@ import BatchesContainer from './containers/BatchesContainer'
 import SignIn from './containers/SignIn'
 import SignUp from './containers/SignUp'
 import Batch from './containers/Batch'
-
+import StudentView from './containers/StudentView'
 
 
 export default class Routes extends Component {
@@ -16,6 +16,8 @@ export default class Routes extends Component {
         <Route path="/sign-in" component={SignIn} />
         <Route path="/sign-up" component={SignUp} />
         <Route path="/batches/:batchId" component={Batch} />
+        <Route path="/students-path/:batchId/:studentId" component={StudentView} />
+
       </div>
     )
   }
