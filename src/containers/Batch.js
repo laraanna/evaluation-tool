@@ -10,6 +10,7 @@ import Avatar from 'material-ui/Avatar';
 import FileFolder from 'material-ui/svg-icons/file/folder';
 import FontIcon from 'material-ui/FontIcon';
 import {List, ListItem} from 'material-ui/List';
+import {fetchLuckyStudent} from '../actions/batches/fetch'
 
 
 class Batch extends PureComponent {
@@ -83,6 +84,12 @@ class Batch extends PureComponent {
     )
   }
 
+  selectStudent = () => {
+    const {batch} = this.props
+    this.props.fetchLuckyStudent(batch)
+
+  }
+
   render() {
     const { batch } = this.props
     if (!batch) return null
@@ -116,7 +123,7 @@ class Batch extends PureComponent {
           </div>
         </div>
 
-
+        <button onClick={this.selectStudent}> ASK A QUESTION </button>
 
       </div>
     )
@@ -132,4 +139,4 @@ const mapStateToProps = ({ currentUser, batches }, { match }) => {
   }
 }
 
-export default connect(mapStateToProps, {fetchOneBatch, push, addStudent: addStudent})(Batch)
+export default connect(mapStateToProps, {fetchOneBatch, push, fetchLuckyStudent, addStudent: addStudent})(Batch)
