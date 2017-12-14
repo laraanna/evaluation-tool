@@ -73,13 +73,18 @@ class Batch extends PureComponent {
     return countArray
   }
 
+  deleteStudent = () => {
+    console.log('delete')
+  }
+
   renderOneStudent = (student, index) => {
     const {batch} = this.props
     const lastColor = student.evaluation[student.evaluation.length-1].color
 
     return(
-      <ListItem onClick={this.goToStudent(batch._id, student._id)} key={index}  secondaryText={lastColor} leftAvatar={ <Avatar src={student.picture} size={50} />}  >
-        {student.name}
+      <ListItem  key={index}  secondaryText={lastColor} leftAvatar={ <Avatar src={student.picture} size={50} />}  >
+        <p onClick={this.goToStudent(batch._id, student._id)}> {student.name} </p>
+        <button onClick={this.deleteStudent}>Delete </button>
       </ListItem>
     )
   }
