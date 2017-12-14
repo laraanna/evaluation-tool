@@ -1,0 +1,22 @@
+.PercentageBar {
+  width:90%;
+  height:5vh;
+}
+
+.PercentageBar .FlexGreen {
+  height:100%;
+  display: inline-block;
+  background-color: #809b68;
+}
+
+.PercentageBar .FlexRed {
+  height:100%;
+  display: inline-block;
+  background-color: #9f0505;
+}
+
+.PercentageBar .FlexYellow {
+  height:100%;
+  display: inline-block;
+  background-color: #ffcc00;
+}
