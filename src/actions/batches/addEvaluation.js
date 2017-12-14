@@ -11,5 +11,27 @@ const api = new API()
 
 export const ADD_EVALUATION = 'ADD_EVALUATION'
 
-export default (student, batch) => {
+export default (batch, studentId, evaluation, student) => {
   return (dispatch) => {
+
+    dispatch({ type: APP_LOADING })
+
+    const content = {batch, studentId, evaluation, student}
+
+    console.log(content)
+
+    api.put(`/batches/${batch._id}`, content)
+      .then(res => {
+        dispatch({ type: EVALUATION_ADDED, payload: res.body })
+        dispatch({ type: APP_DONE_LOADING })
+        dispatch({ type: LOAD_SUCCESS })
+      })
+      .catch((error) => {
+        dispatch({ type: APP_DONE_LOADING })
+        dispatch({
+          type: LOAD_ERROR,
+          payload: error.message
+        })
+      })
+  }
+    }

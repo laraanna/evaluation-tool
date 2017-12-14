@@ -9,6 +9,7 @@ import FileFolder from 'material-ui/svg-icons/file/folder';
 import FontIcon from 'material-ui/FontIcon';
 import {List, ListItem} from 'material-ui/List';
 import EvaluationForm from './EvaluationForm'
+import addEvaluation from '../actions/batches/addEvaluation'
 import {
   Table,
   TableBody,
@@ -23,8 +24,8 @@ class StudentView extends PureComponent {
   constructor(props) {
     super()
 
-    const { date, color, remarks} = props
-    this.state = { date, color, remarks, }
+    const { remark, date, color} = props
+    this.state = { remark, date, color }
   }
   componentWillMount() {
     const { batch, fetchOneBatch } = this.props
@@ -46,7 +47,7 @@ class StudentView extends PureComponent {
 
   updateRemarks(event) {
     this.setState({
-      remarks: this.refs.remarks.value
+      remark: this.refs.remark.value
     })
   }
 
@@ -67,6 +68,10 @@ class StudentView extends PureComponent {
    }
    console.table(evaluation)
    console.log(studentId)
+   console.log(batch._id)
+   const student = batch.students.filter((s) => (s._id === studentId))[0]
+
+   this.props.addEvaluation(batch, studentId, evaluation, student)
   }
 
   renderEvaluation = (feedback, index) => {
@@ -125,9 +130,9 @@ class StudentView extends PureComponent {
 
             <input
               type="text"
-              ref="remarks"
+              ref="remark"
               placeholder="Remarks..."
-              defaultValue={this.state.remarks}
+              defaultValue={this.state.remark}
               onChange={this.updateRemarks.bind(this)}
               onKeyUp={this.updateRemarks.bind(this)}
             />
@@ -152,4 +157,4 @@ const mapStateToProps = ({ currentUser, batches }, { match }) => {
   }
 }
 
-export default connect(mapStateToProps, {fetchOneBatch, push})(StudentView)
+export default connect(mapStateToProps, {fetchOneBatch, push, addEvaluation: addEvaluation})(StudentView)
