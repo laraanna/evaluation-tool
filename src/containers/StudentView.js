@@ -78,7 +78,7 @@ class StudentView extends PureComponent {
     return (
        <TableRow key={index}>
         <TableRowColumn>{feedback.color}</TableRowColumn>
-        <TableRowColumn>{feedback.remarks}</TableRowColumn>
+        <TableRowColumn>{feedback.remark}</TableRowColumn>
         <TableRowColumn>{feedback.date}</TableRowColumn>
       </TableRow>
     )

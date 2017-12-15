@@ -5,7 +5,6 @@ import {
   LOAD_ERROR,
   LOAD_SUCCESS
 } from '../loading'
-import {push} from 'react-router-redux'
 import {STUDENT_REMOVED} from './subscribe'
 
 
@@ -27,7 +26,6 @@ export default (batchId, studentId) => {
         dispatch({ type: STUDENT_REMOVED, payload: res.body })
         dispatch({ type: APP_DONE_LOADING })
         dispatch({ type: LOAD_SUCCESS })
-        // dispatch(push(`/batches/${batchId}`))
       })
       .catch((error) => {
         dispatch({ type: APP_DONE_LOADING })

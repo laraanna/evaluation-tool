@@ -44,8 +44,13 @@ export default (state = [], {type, payload} = {}) => {
     })
 
     case STUDENT_REMOVED:
-      return state.filter((batch) => (batch._id !== payload._id))
-
+      // return state.filter((batch) => (batch._id !== payload._id))
+      return state.map((batch) => {
+        if (batch._id === payload._id) {
+          return { ...payload }
+        }
+      return batch
+    })
 
 
 
