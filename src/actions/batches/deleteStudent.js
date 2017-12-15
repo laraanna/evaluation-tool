@@ -5,18 +5,25 @@ import {
   LOAD_ERROR,
   LOAD_SUCCESS
 } from '../loading'
-import {BATCH_CREATED} from './subscribe'
+import {STUDENT_REMOVED} from './subscribe'
+
 
 const api = new API()
 
-export default (batch) => {
+export const DELETE_STUDENT = 'DELETE_STUDENT'
+
+export default (batchId, studentId) => {
   return (dispatch) => {
+
     dispatch({ type: APP_LOADING })
 
-    api.post('/batches', batch)
-      .then((res) => {
-        dispatch({ type: BATCH_CREATED, payload: res.body  })
+    const content = {studentId}
 
+    console.log(content)
+
+    api.delete(`/batches/${batchId}/${studentId}`)
+      .then(res => {
+        dispatch({ type: STUDENT_REMOVED, payload: res.body })
         dispatch({ type: APP_DONE_LOADING })
         dispatch({ type: LOAD_SUCCESS })
       })

@@ -22,11 +22,13 @@ class BatchesContainer extends PureComponent {
    renderBatch = (batch, index) => {
 
      const number = batch.number
+     const students = batch.students
 
      return (
        <MenuItem
         key={index}
         primaryText={`Batch #${number}`}
+        secondaryText={`Number of Students: ${students.length}`}
         onClick={this.goToBatch(batch._id)}
         />
      )
