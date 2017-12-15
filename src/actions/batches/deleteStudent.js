@@ -6,24 +6,28 @@ import {
   LOAD_SUCCESS
 } from '../loading'
 import {push} from 'react-router-redux'
-
+import {STUDENT_REMOVED} from './subscribe'
 
 
 const api = new API()
 
 export const DELETE_STUDENT = 'DELETE_STUDENT'
 
-export default (student, batch) => {
+export default (batchId, studentId) => {
   return (dispatch) => {
 
     dispatch({ type: APP_LOADING })
 
-    api.delete(`/batches/${batch._id}/${student._id}`)
+    const content = {studentId}
+
+    console.log(content)
+
+    api.delete(`/batches/${batchId}/${studentId}`)
       .then(res => {
         dispatch({ type: STUDENT_REMOVED, payload: res.body })
         dispatch({ type: APP_DONE_LOADING })
         dispatch({ type: LOAD_SUCCESS })
-        dispatch(push(`/batches/${batch._id}`))
+        // dispatch(push(`/batches/${batchId}`))
       })
       .catch((error) => {
         dispatch({ type: APP_DONE_LOADING })

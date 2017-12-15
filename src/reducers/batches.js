@@ -25,6 +25,8 @@ export default (state = [], {type, payload} = {}) => {
         return batch
       })
 
+
+
     case STUDENT_ADDED:
       return state.map((batch) => {
         if (batch._id === payload._id) {

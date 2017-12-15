@@ -5,6 +5,7 @@ import {push} from 'react-router-redux'
 import { fetchOneBatch } from '../actions/batches/fetch'
 import { Link } from 'react-router-dom'
 import addStudent from '../actions/batches/addStudent'
+import deleteStudent from '../actions/batches/deleteStudent'
 import PercentageBar from '../components/batches/PercentageBar'
 import Avatar from 'material-ui/Avatar';
 import FileFolder from 'material-ui/svg-icons/file/folder';
@@ -73,8 +74,11 @@ class Batch extends PureComponent {
     return countArray
   }
 
-  deleteStudent = () => {
+  deleteStudent = (batchId, studentId) => event => {
     console.log('delete')
+    console.log(batchId)
+    console.log(studentId)
+    this.props.deleteStudent(batchId, studentId)
   }
 
   renderOneStudent = (student, index) => {
@@ -84,7 +88,7 @@ class Batch extends PureComponent {
     return(
       <ListItem  key={index}  secondaryText={lastColor} leftAvatar={ <Avatar src={student.picture} size={50} />}  >
         <p onClick={this.goToStudent(batch._id, student._id)}> {student.name} </p>
-        <button onClick={this.deleteStudent}>Delete </button>
+        <button onClick={this.deleteStudent(batch._id, student._id)}>Delete </button>
       </ListItem>
     )
   }
@@ -144,4 +148,4 @@ const mapStateToProps = ({ currentUser, batches }, { match }) => {
   }
 }
 
-export default connect(mapStateToProps, {fetchOneBatch, push, fetchLuckyStudent, addStudent: addStudent})(Batch)
+export default connect(mapStateToProps, {fetchOneBatch, push, fetchLuckyStudent, addStudent: addStudent, deleteStudent: deleteStudent})(Batch)
