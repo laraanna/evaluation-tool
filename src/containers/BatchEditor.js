@@ -58,6 +58,7 @@ class BatchEditor extends PureComponent {
             id="text-field-controlled"
             value={this.state.number}
             onChange={this.handleNumber}
+            placeholder="Batch Number"
           />
           <DatePicker
             value={this.state.startDate}
@@ -75,6 +76,7 @@ class BatchEditor extends PureComponent {
           <RaisedButton
             label="Add Batch"
             style={style}
+            secondary={true}
             onClick={this.handleSubmit.bind(this)}
           />
         </div>
